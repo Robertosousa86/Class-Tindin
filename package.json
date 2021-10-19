@@ -4,6 +4,7 @@
   "description": "Api de cadastro de usuário e aulas.",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --watch 'src/' --exec 'ts-node src/app.ts' -e ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
