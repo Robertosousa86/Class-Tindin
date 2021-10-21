@@ -11,8 +11,7 @@ const validUser = () => {
   return user;
 };
 
-console.log(validUser);
-describe('userService', () => {
+describe('User', () => {
   it('should be return 200 when a valid user is create', (done) => {
     const user = validUser();
 
@@ -21,6 +20,19 @@ describe('userService', () => {
       .send(user)
       .then((response) => {
         expect(response.status).toBe(200);
+        done();
+      });
+  });
+
+  it('should be return status 400(bad request) when email field is empty', (done) => {
+    request(server)
+      .post('/create')
+      .send({
+        email: '',
+        password: 'p4ssword',
+      })
+      .then((response) => {
+        expect(response.status).toBe(400);
         done();
       });
   });
