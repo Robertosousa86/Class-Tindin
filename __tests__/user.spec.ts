@@ -36,4 +36,17 @@ describe('User', () => {
         done();
       });
   });
+
+  it('should be return status 400(bad request) when password field is empty.', (done) => {
+    request(server)
+      .post('/create')
+      .send({
+        email: 'user@email',
+        password: '',
+      })
+      .then((response) => {
+        expect(response.status).toBe(400);
+        done();
+      });
+  });
 });
