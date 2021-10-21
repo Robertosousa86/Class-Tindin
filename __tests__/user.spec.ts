@@ -15,6 +15,7 @@ console.log(validUser);
 describe('userService', () => {
   it('should be return 200 when a valid user is create', (done) => {
     const user = validUser();
+
     request(server)
       .post('/create')
       .send(user)
