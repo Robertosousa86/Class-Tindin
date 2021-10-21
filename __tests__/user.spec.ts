@@ -12,7 +12,7 @@ const validUser = () => {
 };
 
 describe('User', () => {
-  it('should be return 200 when a valid user is create', (done) => {
+  it('should be return 200 when a valid user is create.', (done) => {
     const user = validUser();
 
     request(server)
@@ -24,7 +24,7 @@ describe('User', () => {
       });
   });
 
-  it('should be return status 400(bad request) when email field is empty', (done) => {
+  it('should be return status 400(bad request) when email field is empty.', (done) => {
     request(server)
       .post('/create')
       .send({
