@@ -1,6 +1,6 @@
-interface Iusers {
+interface IUsers {
   email: string;
   password: string;
 }
 
-export { Iusers };
+export { IUsers };
