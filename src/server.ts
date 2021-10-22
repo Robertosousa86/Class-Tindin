@@ -1,8 +1,10 @@
 import express, { json } from 'express';
+import cors from 'cors';
 import * as user from '../src/controller/user';
 
 const server = express();
 
+server.use(cors());
 server.use(json());
 
 server.get('/', (req, res) => {
