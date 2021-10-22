@@ -1,4 +1,3 @@
-import { response } from 'express';
 import { IUsers } from '../types/IUsers';
 
 const users: Array<IUsers> = [];
