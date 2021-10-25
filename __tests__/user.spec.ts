@@ -1,6 +1,8 @@
-import server from '../src/server';
+import fakeServer from '../src/repository/fakeServer';
 import request from 'supertest';
 import { IUsers } from '../src/types/IUsers';
+// import { database } from '../src/repository/databasetest';
+import fs from 'fs';
 
 const validUser = () => {
   const user: IUsers = {
@@ -11,42 +13,34 @@ const validUser = () => {
   return user;
 };
 
+afterAll(() => {
+  const filePath = 'db.sqlite';
+  fs.unlinkSync(filePath);
+});
+
 describe('User', () => {
-  it('should be return 200 when a valid user is create.', (done) => {
-    const user = validUser();
+  const postValid = async () => {
+    return await request(fakeServer).post('/create').send(validUser());
+  };
 
-    request(server)
-      .post('/create')
-      .send(user)
-      .then((response) => {
-        expect(response.status).toBe(200);
-        done();
-      });
+  it('should be return 200 when a valid user is create.', async () => {
+    const response = await postValid();
+    expect(response.status).toBe(200);
   });
+});
 
-  it('should be return status 400(bad request) when email field is empty.', (done) => {
-    request(server)
-      .post('/create')
-      .send({
-        email: '',
-        password: 'p4ssword',
-      })
-      .then((response) => {
-        expect(response.status).toBe(400);
-        done();
-      });
+it('should be return status 400(bad request) when email field is empty.', async () => {
+  const response = await request(fakeServer).post('/create').send({
+    email: '',
+    password: 'p4ssword',
   });
+  expect(response.status).toBe(400);
+});
 
-  it('should be return status 400(bad request) when password field is empty.', (done) => {
-    request(server)
-      .post('/create')
-      .send({
-        email: 'user@email',
-        password: '',
-      })
-      .then((response) => {
-        expect(response.status).toBe(400);
-        done();
-      });
+it('should be return status 400(bad request) when password field is empty.', async () => {
+  const response = await request(fakeServer).post('/create').send({
+    email: 'user@email',
+    password: '',
   });
+  expect(response.status).toBe(400);
 });
