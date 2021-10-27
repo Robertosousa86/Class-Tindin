@@ -36,6 +36,7 @@
     "@types/mysql": "^2.15.19",
     "@types/sqlite3": "^3.1.7",
     "@types/supertest": "^2.0.11",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jest": "^27.3.0",
