@@ -3,7 +3,6 @@ import 'dotenv/config';
 
 let db: mysql.Connection;
 const connection = async () => {
-  console.log(process.env.DB_HOST);
   if (!process.env.DB_HOST)
     throw new Error(
       'As variáveis de ambiente em .env não foram definidas para a conexão com o banco de dados!'
