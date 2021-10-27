@@ -1,7 +1,6 @@
-import fakeServer from '../src/repository/fakeServer';
+import FakeServer from '../repository/fakeServer';
 import request from 'supertest';
 import { IUsers } from '../src/types/IUsers';
-// import { database } from '../src/repository/databasetest';
 import fs from 'fs';
 
 const validUser = () => {
@@ -13,24 +12,32 @@ const validUser = () => {
   return user;
 };
 
+beforeEach(() => {
+  fs.chmod('./repository/db.sqlite', 777, (err) => {
+    if (err) throw err;
+    console.log(
+      'The permissions for file "./repository/db.sqlite" have been changed!'
+    );
+  });
+});
+
 afterAll(() => {
-  const filePath = 'db.sqlite';
-  fs.unlinkSync(filePath);
+  fs.unlinkSync('./repository/db.sqlite');
 });
 
 describe('User', () => {
   const postValid = async () => {
-    return await request(fakeServer).post('/create').send(validUser());
+    return await request(FakeServer).post('/create').send(validUser());
   };
 
   it('should be return 200 when a valid user is create.', async () => {
     const response = await postValid();
-    expect(response.status).toBe(200);
+    expect(response.status).toBe(201);
   });
 });
 
 it('should be return status 400(bad request) when email field is empty.', async () => {
-  const response = await request(fakeServer).post('/create').send({
+  const response = await request(FakeServer).post('/create').send({
     email: '',
     password: 'p4ssword',
   });
@@ -38,7 +45,7 @@ it('should be return status 400(bad request) when email field is empty.', async 
 });
 
 it('should be return status 400(bad request) when password field is empty.', async () => {
-  const response = await request(fakeServer).post('/create').send({
+  const response = await request(FakeServer).post('/create').send({
     email: 'user@email',
     password: '',
   });
