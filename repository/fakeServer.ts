@@ -6,7 +6,7 @@ const Fakeserver = express();
 Fakeserver.use(json());
 
 Fakeserver.get('/', (req, res) => {
-  return res.send('Hello Tindin =)');
+  return res.send('Hello tests!');
 });
 
 Fakeserver.post('/create', user.create);
