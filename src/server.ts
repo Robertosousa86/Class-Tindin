@@ -14,5 +14,7 @@ server.get('/', (req, res) => {
 server.post('/create', user.create);
 server.get('/users', user.list);
 server.get('/users/:id', user.get);
+server.put('/users', user.update);
+server.delete('/users', user.remove);
 
 export default server;
